@@ -1,0 +1,9 @@
+.mainSection {
+  width: 100%;
+  height: calc(100vh - 120px);
+  background-color: whitesmoke;
+  padding: 30px;
+  display: grid;
+  grid-template-columns: 1fr 7fr;
+  column-gap: 50px;
+}

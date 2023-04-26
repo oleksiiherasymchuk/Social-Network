@@ -1,0 +1,18 @@
+.footer{
+    width: 100%;
+    height: 60px;
+    background-color: blue;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: white;
+
+    span{
+        img{
+            width: 30px;
+            height: 20px;
+            margin-left: 12px;
+            border-radius: 1px;
+        }
+    }
+}
