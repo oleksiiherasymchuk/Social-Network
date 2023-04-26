@@ -1,6 +1,7 @@
 import React from "react";
 import s from "./ProfileData.module.css";
 
+
 const ProfileData = () => {
   return (
     <div className={s.profileData}>

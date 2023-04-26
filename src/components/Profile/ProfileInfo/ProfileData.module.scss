@@ -18,13 +18,15 @@
         display: flex;
         justify-content: center;
         align-items: center;
+
         button{
-            height: 25px;
+            height: 30px;
             width: 30%;
             background-color: goldenrod;
             border: none;
             border-radius: 4px;
             text-align: center;
+            margin-top: 5px;
         }
 
         button:hover{
