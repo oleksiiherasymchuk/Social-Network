@@ -1,7 +1,7 @@
 .main {
   width: 100%;
-  min-height: -moz-min-content;
-  min-height: min-content;
+  height: -moz-min-content;
+  height: min-content;
   background-color: white;
   border-radius: 4px;
   border: 1px solid gainsboro;

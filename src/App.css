@@ -1,6 +1,7 @@
 .mainSection {
   width: 100%;
-  height: calc(100vh - 120px);
+  /* height: calc(100vh - 120px); */
+  height: min-content;
   background-color: whitesmoke;
   padding: 30px;
   display: grid;

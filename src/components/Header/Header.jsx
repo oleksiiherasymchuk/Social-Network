@@ -1,5 +1,6 @@
 import React from 'react'
 import s from './Header.module.css'
+import SignInModal from './SignInModal/SignInModal';
 
 const Header = () => {
   return (
@@ -10,7 +11,7 @@ const Header = () => {
         </div>
 
         <div className={s.bar}>
-            <button className={s.signIn}>Sign In</button>
+            <button className={s.signIn}><SignInModal /></button>
             <button className={s.signOut}>Sign Out</button>
         </div>
 

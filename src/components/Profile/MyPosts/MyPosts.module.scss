@@ -85,6 +85,29 @@
 
                 }
             }
+
+            .deleteButton{
+                height: 100%;
+                width: 75px;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+
+                button{
+                    height: 40%;
+                    width: 100%;
+                    background-color: red;
+                    color: white;
+                    border: none;
+                    border-radius: 4px;
+                }
+
+                button:hover{
+                    color: red;
+                    background-color: white;
+                    border: 1px solid red;
+                }
+            }
         }
     }
 

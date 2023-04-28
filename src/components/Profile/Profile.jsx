@@ -4,8 +4,16 @@ import  MyPosts  from './MyPosts/MyPosts'
 import ProfileInfo from './ProfileInfo/ProfileInfo'
 
 const Profile = (props) => {
-  // debugger
-  console.log(props);
+
+  const addPost = (postText) => {
+    props.addPost(postText)
+  }
+
+  const deletePost = (postID) => {
+    props.deletePost(postID)
+  }
+
+
   return (
     <div className={s.profile}>
         <div className={s.profileInfo}>
@@ -13,7 +21,11 @@ const Profile = (props) => {
         </div>
 
         <div className={s.profilePosts}>
-          <MyPosts />
+          <MyPosts 
+          posts={props.posts}
+          addPost={addPost}
+          deletePost = {deletePost}
+           />
         </div>
 
     </div>
