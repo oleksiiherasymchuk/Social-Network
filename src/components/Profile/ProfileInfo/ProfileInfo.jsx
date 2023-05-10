@@ -1,22 +1,41 @@
 import React from "react";
 import s from "./ProfileInfo.module.css";
-import man from './images/man.png'
-// import woman from './images/woman.png'
-import ProfileData from './ProfileData'
-import ProfileStatus from './ProfileStatus'
+import ProfileData from "./ProfileData";
+import ProfileStatus from "./ProfileStatus";
 
-const ProfileInfo = () => {
+const ProfileInfo = (props) => {
+  // console.log(props.profile);
+  
+  // const onAvatarSelected = (e) => {
+  //   if (e.target.files.length) {
+  //     console.log(e.target);
+  //     props.savePhoto(e.target.files[0]);
+  //   }
+  // };
+
+  // // const onSubmit = (formData) => {
+  // //     saveProfile(formData).then(
+  // //         () => {
+  // //             setEditMode(false);
+  // //         }
+  // //     );
+  // // }
   return (
     <div className={s.profileInfo}>
       <div className={s.profileInfoAvatar}>
-        <img src={man} alt="" />
-        {/* <img src={woman} alt="" /> */}
-        <input type={"file"} name="" id="" />
-        <ProfileStatus />
+        <ProfileStatus
+          profile={props.profile}
+          status={props.status}
+          getUserStatus={props.getUserStatus}
+          updateStatus={props.updateStatus}
+        />
       </div>
 
       <div className={s.profileInfoDetails}>
-        <ProfileData />
+        <ProfileData
+          profile={props.profile}
+          getUserProfile={props.getUserProfile}
+        />
       </div>
     </div>
   );

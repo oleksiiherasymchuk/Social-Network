@@ -1,5 +1,5 @@
 .loginForm {
-  height: 150px;
+  height: auto;
   width: 100%;
   display: flex;
   justify-content: space-between;
@@ -15,6 +15,28 @@
   margin-bottom: 10px;
   padding-left: 5px;
 }
+.loginForm .captcha {
+  margin-top: 10px;
+  margin-bottom: 10px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: -moz-min-content;
+  height: min-content;
+  width: 100%;
+  flex-direction: column;
+}
+.loginForm .captcha input {
+  border: 1px solid gainsboro;
+  width: 40%;
+  height: 30px;
+  padding-left: 5px;
+  border-radius: 4px;
+}
 .loginForm .formInputCheckbox {
   width: 5%;
+}
+
+.ant-modal-footer {
+  display: none;
 }/*# sourceMappingURL=SignInModal.module.css.map */

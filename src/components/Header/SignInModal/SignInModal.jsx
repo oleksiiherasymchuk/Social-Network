@@ -1,7 +1,6 @@
 // validators on fields (errors and validate)
-// icons to fields 
-
-import React, { useState } from "react";
+// icons to fields
+import React, { useState, useEffect } from "react";
 import {
   Button,
   Modal,
@@ -15,7 +14,8 @@ import s from "./SignInModal.module.css";
 // } from "@ant-design/icons";
 import { reduxForm, Field } from "redux-form";
 import { connect } from "react-redux";
-import { login } from "../../../redux/authReducer";
+import { getCaptchaUrl, login } from "../../../redux/authReducer";
+// import { Navigate } from "react-router-dom";
 
 // const InputEmail = () => {
 //   return (
@@ -52,34 +52,50 @@ import { login } from "../../../redux/authReducer";
 //   return <Checkbox name="checkbox">Remember me</Checkbox>;
 // };
 
-const LoginForm = ({ handleSubmit }) => {
+const LoginForm = ({ handleSubmit, captchaUrl, getCaptchaUrl }) => {
+  useEffect(() => {
+    getCaptchaUrl()
+  }, [getCaptchaUrl])
+  
+
   return (
     <div className={s.loginForm}>
       <form onSubmit={handleSubmit}>
-          <Field
-            className={s.formInput}
-            name="email"
-            component="input"
-            placeholder="Enter your email"
-            type="email"
-          />
-          <Field
-            className={s.formInput}
-            name="password"
-            component="input"
-            placeholder="Enter your password"
-            type="password"
-          />
-          <Field
-            className={s.formInputCheckbox}
-            name="rememberMe"
-            component="input"
-            type="checkbox"
-          />{" "}
-          Remember me
-          <Button type="primary" block>
-            <button>log in</button>
-          </Button>
+        <Field
+          className={s.formInput}
+          name="email"
+          component="input"
+          placeholder="Enter your email"
+          type="email"
+        />
+        <Field
+          className={s.formInput}
+          name="password"
+          component="input"
+          placeholder="Enter your password"
+          type="password"
+        />
+        <Field
+          className={s.formInputCheckbox}
+          name="rememberMe"
+          component="input"
+          type="checkbox"
+        />{" "}
+        Remember me
+        <div className={s.captcha}>
+          {captchaUrl && <img src={captchaUrl} alt="captcha" />}
+          {captchaUrl && (
+            <input
+              type="text"
+              placeholder="Type the characters above"
+              name="captcha"
+              required
+            />
+          )}
+        </div>
+        <Button type="primary" block>
+          log
+        </Button>
       </form>
     </div>
   );
@@ -88,7 +104,9 @@ const LoginForm = ({ handleSubmit }) => {
 const LoginReduxForm = reduxForm({ form: "login" })(LoginForm);
 
 const SignInModal = (props) => {
+  // console.log(props);
   const [isModalOpen, setIsModalOpen] = useState(false);
+
 
   const showModal = () => {
     setIsModalOpen(true);
@@ -103,32 +121,31 @@ const SignInModal = (props) => {
   };
 
   const onSubmit = (formData) => {
-    props.login(formData.email, formData.password, formData.rememberMe)
+    debugger
+    props.login(formData.email, formData.password, formData.rememberMe);
+    setIsModalOpen(false)
+    console.log(formData);
+    // return <Navigate to={`/profile/22342`} />
   };
-
-  if(props.isAuth) {
-    // withAuthRedirect HOC
-    // add withRouter
-    // return <Redirect to={"/news"}/>
-  }
-
 
   return (
     <>
-      <Button
+      <div
         type="primary"
         onClick={showModal}
-        style={{ height: "40px", borderRadius: "10px", fontSize: "16px" }}
+        style={{ height: "40px", borderRadius: "10px", fontSize: "16px", display:'flex', justifyContent:'center', alignItems:'center'
+       }}
       >
         Sign In
-      </Button>
+      </div>
       <Modal
         title="Login Modal"
+        footer={null}
         open={isModalOpen}
         onOk={handleOk}
         onCancel={handleCancel}
       >
-        <LoginReduxForm onSubmit={onSubmit} captchaUrl={props.captchaUrl} />
+        <LoginReduxForm onSubmit={onSubmit} captchaUrl={props.captchaUrl} getCaptchaUrl={props.getCaptchaUrl} />
       </Modal>
     </>
   );
@@ -139,5 +156,4 @@ const mapStateToProps = (state) => ({
   isAuth: state.auth.isAuth,
 });
 
-export default connect(mapStateToProps, { login })(SignInModal);
-
+export default connect(mapStateToProps, { login, getCaptchaUrl })(SignInModal);

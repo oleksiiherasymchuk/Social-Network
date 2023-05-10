@@ -1,49 +1,85 @@
-import React from "react";
+import React, { useEffect } from "react";
 import s from "./ProfileData.module.css";
+import { useParams } from "react-router-dom";
+import man from "./images/man.png";
 
-
-const ProfileData = () => {
+const ProfileData = ({ getUserProfile, ...props }) => {
+  const onAvatarSelected = (e) => {
+    if (e.target.files.length) {
+      console.log(e.target);
+      props.savePhoto(e.target.files[0]);
+    }
+  };
+  // const onSubmit = (formData) => {
+  //     saveProfile(formData).then(
+  //         () => {
+  //             setEditMode(false);
+  //         }
+  //     );
+  // }
+  const params = useParams();
+  let userId = params.userId;
+  useEffect(() => {
+    console.log('use effect in profile data');
+    getUserProfile(userId);
+  }, [getUserProfile, userId]);
+  // let isOwner = !params.userId
   return (
-    <div className={s.profileData}>
-      <div>
-        <b>Full name</b>: fn
-        {/* {profile.fullName} */}
+    <>
+      <div className={s.profileData}>
+        <div className={s.avatar}>
+          <img
+            src={!props.profile ? "" : props.profile.photos.large || man}
+            alt=""
+            style={ { height: '150px', width: '50%', borderRadius: '10px' } }
+          />
+          <input type={"file"} onChange={onAvatarSelected} />
+        </div>
+
+        <div>
+          <b>Full name</b>: <span></span>
+          {!props.profile ? "username" : props.profile.fullName}
+        </div>
+        <div>
+          <b>Looking for a job</b>: <span></span>
+          {!props.profile ? "" : props.profile.lookingForAJob ? "Yes" : "No"}
+        </div>
+        <div>
+          <b>My professional skills</b>: <span></span>
+          {!props.profile
+            ? ""
+            : !props.profile.lookingForAJobDescription
+            ? " my soft and hard skills"
+            : props.profile.lookingForAJobDescription}
+        </div>
+        <div>
+          <b>About me</b>: <span></span>
+          {!props.profile
+            ? ""
+            : !props.profile.aboutMe
+            ? props.profile.fullName
+            : props.profile.aboutMe}
+        </div>
+        <div>
+          <b>Contacts</b>:
+          <ul>
+            {!props.profile
+              ? ""
+              : Object.keys(props.profile.contacts).map((c) => {
+                  return (
+                    <li key={c}>
+                      <b>{c}</b>: {props.profile.contacts[c]}
+                    </li>
+                  );
+                })}
+          </ul>
+        </div>
+        {/* <div className={s.button}>
+          <button className={s.edit}>Edit</button>
+        </div> */}
+        {/* {isOwner && <div><button onClick={goToEditMode} className={s.editButton}>edit</button></div>} */}
       </div>
-      <div>
-        <b>Looking for a job</b>: looking for a job
-        {/* {profile.lookingForAJob ? "yes" : "no"} */}
-      </div>
-      {/* {profile.lookingForAJob && */}
-      <div>
-        <b>My professional skills</b>: skills
-        {/* {profile.lookingForAJobDescription} */}
-      </div>
-      {/* } */}
-      <div>
-        <b>About me</b>: about me
-        {/* {profile.aboutMe} */}
-      </div>
-      <div>
-        <b>Contacts</b>:
-        <ul>
-          <li>inst</li>
-          <li>linked in</li>
-          <li>twiter</li>
-          <li>telegram</li>
-          <li>viber</li>
-          <li>skype</li>
-          <li>github</li>
-          <li>youtube</li>
-        </ul>
-        {/* {Object.keys(profile.contacts).map(key => {
-                return <Contact key={key} contactTitle={key} contactValue={profile.contacts[key]} />
-            })} */}
-      </div>
-      <div className={s.button}>
-        <button className={s.edit}>Edit</button>
-      </div>
-      {/* {isOwner && <div><button onClick={goToEditMode} className={s.editButton}>edit</button></div>} */}
-    </div>
+    </>
   );
 };
 

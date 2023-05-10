@@ -1,5 +1,5 @@
 .loginForm {
-  height: 150px;
+  height: auto;
   width: 100%;
   display: flex;
   justify-content: space-between;
@@ -17,7 +17,31 @@
     padding-left: 5px;
   }
 
+  .captcha{
+    margin-top: 10px;
+    margin-bottom: 10px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    // height: 100px;
+    height: min-content;
+    width: 100%;
+    flex-direction: column;
+
+    input{
+      border: 1px solid gainsboro;
+      width: 40%;
+      height: 30px;
+      padding-left: 5px;
+      border-radius: 4px;
+    }
+  }
+
   .formInputCheckbox {
     width: 5%;
   }
+}
+
+.ant-modal-footer{
+  display: none;
 }

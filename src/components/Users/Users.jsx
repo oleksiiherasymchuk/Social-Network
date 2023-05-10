@@ -7,20 +7,20 @@ import { connect } from "react-redux";
 import { requestUsers, toggleIsFetching } from "../../redux/usersReducer";
 import Preloader from "../../common/Preloader/Preloader";
 
-const Users = ({ users, requestUsers, isFetching, toggleIsFetching }) => {
+const Users = ({ users, requestUsers, isFetching, toggleIsFetching, currentPage, pageSize, totalUsersCount, filter }) => {
   useEffect(() => {
-    toggleIsFetching(true)
-    requestUsers().then(() => {
-      toggleIsFetching(false)
+    toggleIsFetching(true);
+    requestUsers(currentPage, pageSize, totalUsersCount, filter).then(() => {
+      toggleIsFetching(false);
+      // console.log(currentPage, pageSize, totalUsersCount, filter);
     });
-  }, [requestUsers, toggleIsFetching]);
+  }, [requestUsers, toggleIsFetching, currentPage, filter, totalUsersCount, pageSize]);
 
   return (
     <div className={s.usersComponent}>
       {isFetching ? (
         <div className={s.preloader}>
           <Preloader />
-          loading...
         </div>
       ) : (
         <div className={s.users}>
@@ -46,6 +46,14 @@ const mapStateToProps = (state) => {
   return {
     users: state.usersPage.users,
     isFetching: state.usersPage.isFetching,
+    currentPage: state.usersPage.currentPage,
+    totalUsersCount: state.usersPage.totalUsersCount,
+    pageSize: state.usersPage.pageSize,
+    filter: state.usersPage.filter
+    // followingInProgress: getFollowingInProgress(state),
   };
 };
-export default compose(connect(mapStateToProps, { requestUsers, toggleIsFetching}))(Users);
+export default compose(
+  connect(mapStateToProps, { requestUsers, toggleIsFetching })
+)(Users);
+

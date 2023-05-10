@@ -1,6 +1,7 @@
 .profileInfo{
     // height: 100%;
-    height: 500px;
+    // height: 500px;
+    height: min-content;
     width: 100%;
     display: flex;
     justify-content: space-between;
@@ -9,7 +10,7 @@
 
 
     &Avatar{
-        height: 37%;
+        height: 4%;
         width: 75%;
         display: flex;
         justify-content: space-between;
@@ -29,7 +30,23 @@
     }
 
     &Details{
-        height: 62%;
+        height: 95%;
         width: 100%;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+
+        img{
+            height: 80%;
+            width: 50%;
+            border-radius: 10px;
+        }
+
+        input{
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            width: 50%;
+        }
     }
 }

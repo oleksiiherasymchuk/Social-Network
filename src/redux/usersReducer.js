@@ -8,6 +8,7 @@ const SET_TOTAL_USERS_COUNT = "users/SET_TOTAL_USERS_COUNT";
 const TOGGLE_IS_FETCHING = "users/TOGGLE_IS_FETCHING";
 const TOGGLE_IS_FOLLOWING_PROGRESS = "users/TOGGLE_IS_FOLLOWING_PROGRESS";
 const SET_FILTER = "users/SET_FILTER";
+const SET_PAGE_SIZE = "users/SET_PAGE_SIZE"
 
 let initialUsersState = {
   users: [],
@@ -81,6 +82,11 @@ const usersReducer = (state = initialUsersState, action) => {
         ...state,
         filter: action.payload,
       };
+    case SET_PAGE_SIZE: 
+    return {
+      ...state,
+      pageSize: action.payload
+    }
     default:
       return state;
   }
@@ -107,13 +113,45 @@ export const toggleFollowingProgress = (isFetching, userId) => ({
   isFetching,
   userId,
 });
+export const setPageSize = (pageSize) => ({type: SET_PAGE_SIZE, payload: pageSize})
+
+export const requestUsers = (page, pageSize, filter) => {
+  return async (dispatch) => {
+    dispatch(toggleIsFetching(true));
+    dispatch(setCurrentPage(page));
+    dispatch(setFilter(filter));
+
+    let data = await usersAPI.getUsers(
+      page,
+      pageSize
+      // filter.term,
+      // filter.friend
+    );
+    dispatch(toggleIsFetching(false));
+    dispatch(setUsers(data.items));
+    dispatch(setTotalUsersCount(data.totalCount));
+  };
+};
+
+// const followUnfollowFlow = async (dispatch, userId, apiMethod, actionCreator) => {
+//     dispatch(toggleFollowingProgress(true, userId));
+//     let response = await apiMethod(userId);
+
+//     if (response.data.resultCode === 0) {
+//         dispatch(actionCreator(userId));
+//     }
+//     dispatch(toggleFollowingProgress(false, userId));
+// }
+
+// export const follow = (userId) => {
+//     return async (dispatch) => {
+//         followUnfollowFlow(dispatch, userId, usersAPI.follow.bind(usersAPI), followSuccess);
+//     }
+// }
+// export const unfollow = (userId) => {
+//     return async (dispatch) => {
+//         followUnfollowFlow(dispatch, userId, usersAPI.unfollow.bind(usersAPI), unfollowSuccess);
+//     }
+// }
 
 export default usersReducer;
-
-export const requestUsers = () => {
-    return async(dispatch) => {
-        let data = await usersAPI.getUsers()
-        dispatch(setUsers(data.items))
-    }
-}
-

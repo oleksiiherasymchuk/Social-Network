@@ -33,8 +33,7 @@ export const securityAPI = {
 
 export const profileAPI = {
   getProfile(userId) {
-    return instance.get(`profile/${userId}`);
-    // return instance.get(`profile/` + userId);
+    return instance.get(`profile/` + userId);
   },
   getStatus(userId) {
     return instance.get(`profile/status/${userId}`);
@@ -51,25 +50,22 @@ export const profileAPI = {
       },
     });
   },
-  saveProfile(profile){
-    return instance.put(`profile`, profile)
-  }
+  saveProfile(profile) {
+    return instance.put(`profile`, profile);
+  },
 };
 
 export const usersAPI = {
   getProfile(userId) {
-    // console.warn("Obsolete method. Please profileAPI object.")
-    return profileAPI.getProfile(userId)
+    console.warn("Obsolete method. Please profileAPI object.");
+    return profileAPI.getProfile(userId);
   },
-  getUsers(currentPage = 1, pageSize = 10, term = "", friend = null) {
-    return instance
-      .get(
-        `users?page=${currentPage}&count=${pageSize}&term=${term}` +
-          (friend === null ? "" : `$friend=${friend}`)
-      )
-      .then((response) => {
-        return response.data;
-      });
+  async getUsers(currentPage = 1, pageSize = 10, term = "", friend = null) {
+    const response = await instance.get(
+      `users?page=${currentPage}&count=${pageSize}&term=${term}` +
+        (friend === null ? "" : `$friend=${friend}`)
+    );
+    return response.data;
   },
   follow(userId) {
     return instance.post(`follow/${userId}`);
