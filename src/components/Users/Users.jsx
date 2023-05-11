@@ -12,7 +12,6 @@ const Users = ({ users, requestUsers, isFetching, toggleIsFetching, currentPage,
     toggleIsFetching(true);
     requestUsers(currentPage, pageSize, totalUsersCount, filter).then(() => {
       toggleIsFetching(false);
-      // console.log(currentPage, pageSize, totalUsersCount, filter);
     });
   }, [requestUsers, toggleIsFetching, currentPage, filter, totalUsersCount, pageSize]);
 

@@ -15,9 +15,6 @@ const Paginator = (props) => {
   let currentPage = useSelector(getCurrentPage);
   let totalUsersCount = useSelector(getTotalUsersCount);
   let pageSize = useSelector(getPageSize);
-  // let filter = useSelector(getUsersFilter);
-
-  // const [localPageSize, setLocalPageSize] = useState(pageSize);
 
   const onPageChanged = (pageNumber) => {
     dispatch(requestUsers(pageNumber, pageSize));
@@ -27,9 +24,7 @@ const Paginator = (props) => {
     dispatch(setPageSize(size))
     dispatch(setCurrentPage(1))
     dispatch(requestUsers(1, size));
-    // dispatch()
   }
-
 
   useEffect(() => {
     requestUsers(currentPage, pageSize);
@@ -48,7 +43,7 @@ const Paginator = (props) => {
         current={currentPage}
         pageSize={pageSize}
         onChange={onPageChanged}
-        // showSizeChanger={false}
+        // pageSizeOptions={[10, 20, 30, 40]}
         onShowSizeChange={onPageSizeChanged}
         showTotal={(total) => `Total ${total} items`}
       />

@@ -1,112 +1,98 @@
-// validators on fields (errors and validate)
-// icons to fields
+// // icons to fields
 import React, { useState, useEffect } from "react";
-import {
-  Button,
-  Modal,
-  // Input, Tooltip, Checkbox
-} from "antd";
-import s from "./SignInModal.module.css";
-// import {
-//   InfoCircleOutlined,
-//   UserOutlined,
-//   SecurityScanOutlined,
-// } from "@ant-design/icons";
-import { reduxForm, Field } from "redux-form";
-import { connect } from "react-redux";
+import { Formik, Form, Field, ErrorMessage } from "formik";
+import { Modal } from "antd";
+import { useDispatch, useSelector } from "react-redux";
+import { CaptchaUrl } from "../../../redux/authSelector";
 import { getCaptchaUrl, login } from "../../../redux/authReducer";
+import s from "./SignInModal.module.css";
 // import { Navigate } from "react-router-dom";
 
-// const InputEmail = () => {
-//   return (
-//     <>
-//       <Input
-//         placeholder="Enter your username"
-//         name="email"
-//         prefix={<UserOutlined className="site-form-item-icon" />}
-//         suffix={
-//           <Tooltip title="Extra information">
-//             <InfoCircleOutlined
-//               style={{
-//                 color: "rgba(0,0,0,.45)",
-//               }}
-//             />
-//           </Tooltip>
-//         }
-//       />
-//     </>
-//   );
-// };
+const SignInModalWithFormik = ({ captchaUrl, getCaptchaUrl, ...props }) => {
+  const dispatch = useDispatch();
 
-// const InputPassword = () => {
-//   return (
-//     <Input.Password
-//       placeholder="Enter your password"
-//       name="password"
-//       prefix={<SecurityScanOutlined className="site-form-item-icon" />}
-//     />
-//   );
-// };
-
-// const InputCheckbox = () => {
-//   return <Checkbox name="checkbox">Remember me</Checkbox>;
-// };
-
-const LoginForm = ({ handleSubmit, captchaUrl, getCaptchaUrl }) => {
   useEffect(() => {
-    getCaptchaUrl()
-  }, [getCaptchaUrl])
-  
+    getCaptchaUrl();
+  }, [getCaptchaUrl]);
+
+  const validate = (values) => {
+    const errors = {};
+    if (!values.email) {
+      errors.email = "Required";
+    } else if (!/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i.test(values.email)) {
+      errors.email = "Invalid email address";
+    }
+    return errors;
+  };
+
+  const submit = (values, { setSubmitting }) => {
+    dispatch(login(values.email, values.password));
+    setSubmitting(false);
+    // return <Navigate to={`/profile/22342`} />;
+  };
 
   return (
     <div className={s.loginForm}>
-      <form onSubmit={handleSubmit}>
-        <Field
-          className={s.formInput}
-          name="email"
-          component="input"
-          placeholder="Enter your email"
-          type="email"
-        />
-        <Field
-          className={s.formInput}
-          name="password"
-          component="input"
-          placeholder="Enter your password"
-          type="password"
-        />
-        <Field
-          className={s.formInputCheckbox}
-          name="rememberMe"
-          component="input"
-          type="checkbox"
-        />{" "}
-        Remember me
-        <div className={s.captcha}>
-          {captchaUrl && <img src={captchaUrl} alt="captcha" />}
-          {captchaUrl && (
-            <input
-              type="text"
-              placeholder="Type the characters above"
-              name="captcha"
-              required
+      <Formik
+        initialValues={{ email: "", password: "", toggle: false }}
+        validate={validate}
+        onSubmit={submit}
+      >
+        {({ isSubmitting }) => (
+          <Form>
+            <Field
+              type="email"
+              name="email"
+              className={s.formInput}
+              placeholder="Enter your email"
             />
-          )}
-        </div>
-        <Button type="primary" block>
-          log
-        </Button>
-      </form>
+            <ErrorMessage name="email" component="div" />
+            <Field
+              type="password"
+              name="password"
+              className={s.formInput}
+              placeholder="Enter your password"
+            />
+            <ErrorMessage name="password" component="div" />
+            <label>
+              <Field
+                type="checkbox"
+                name="toggle"
+                className={s.formInputCheckbox}
+              />{" "}
+              Remember me
+            </label>
+            <div className={s.captcha}>
+              {captchaUrl && <img src={captchaUrl} alt="captcha" />}
+              {captchaUrl && (
+                <input
+                  type="text"
+                  placeholder="Type the characters above"
+                  name="captcha"
+                  required
+                />
+              )}
+            </div>
+            <div className={s.button}>
+              <button
+                type="submit"
+                disabled={isSubmitting}
+                onClick={props.onSubmit}
+              >
+                Login
+              </button>
+            </div>
+          </Form>
+        )}
+      </Formik>
     </div>
   );
 };
 
-const LoginReduxForm = reduxForm({ form: "login" })(LoginForm);
-
 const SignInModal = (props) => {
-  // console.log(props);
-  const [isModalOpen, setIsModalOpen] = useState(false);
+  const captchaUrl = useSelector(CaptchaUrl);
 
+  const [isModalOpen, setIsModalOpen] = useState(false);
 
   const showModal = () => {
     setIsModalOpen(true);
@@ -120,12 +106,8 @@ const SignInModal = (props) => {
     setIsModalOpen(false);
   };
 
-  const onSubmit = (formData) => {
-    debugger
-    props.login(formData.email, formData.password, formData.rememberMe);
-    setIsModalOpen(false)
-    console.log(formData);
-    // return <Navigate to={`/profile/22342`} />
+  const onSubmit = () => {
+    setIsModalOpen(false);
   };
 
   return (
@@ -133,27 +115,33 @@ const SignInModal = (props) => {
       <div
         type="primary"
         onClick={showModal}
-        style={{ height: "40px", borderRadius: "10px", fontSize: "16px", display:'flex', justifyContent:'center', alignItems:'center'
-       }}
+        style={{
+          height: "40px",
+          borderRadius: "10px",
+          fontSize: "16px",
+          display: "flex",
+          justifyContent: "center",
+          alignItems: "center",
+        }}
       >
         Sign In
       </div>
       <Modal
         title="Login Modal"
+        style={{ textAlign: "center" }}
         footer={null}
         open={isModalOpen}
         onOk={handleOk}
         onCancel={handleCancel}
       >
-        <LoginReduxForm onSubmit={onSubmit} captchaUrl={props.captchaUrl} getCaptchaUrl={props.getCaptchaUrl} />
+        <SignInModalWithFormik
+          onSubmit={onSubmit}
+          captchaUrl={captchaUrl}
+          getCaptchaUrl={getCaptchaUrl}
+        />
       </Modal>
     </>
   );
 };
 
-const mapStateToProps = (state) => ({
-  captchaUrl: state.auth.captchaUrl,
-  isAuth: state.auth.isAuth,
-});
-
-export default connect(mapStateToProps, { login, getCaptchaUrl })(SignInModal);
+export default SignInModal;

@@ -1,7 +1,8 @@
-1. paginator onShowSizeChange
-2. redirect to 22342 on login
-3. make sign in modal works
-4. websocket chat
-5. 
-
+redirect to 22342 on login
+make sign in modal works
+websocket chat
+post update?
+signinmodal + formik
+validators for login and signinmodal 
+filter for Users
 

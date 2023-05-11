@@ -40,6 +40,24 @@
   .formInputCheckbox {
     width: 5%;
   }
+
+  .button{
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 40px;
+    button{
+      width: 100px;
+      height: 30px;
+      border: none;
+      border-radius: 10px;
+      background-color: blue;
+      color: white;
+    }
+  }
+
+
 }
 
 .ant-modal-footer{
