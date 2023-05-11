@@ -6,10 +6,17 @@ import { useDispatch, useSelector } from "react-redux";
 import { CaptchaUrl } from "../../../redux/authSelector";
 import { getCaptchaUrl, login } from "../../../redux/authReducer";
 import s from "./SignInModal.module.css";
+// import { getUserProfile } from "../../../redux/profileReducer";
 // import { Navigate } from "react-router-dom";
 
 const SignInModalWithFormik = ({ captchaUrl, getCaptchaUrl, ...props }) => {
   const dispatch = useDispatch();
+
+  // let userId = props.userId;
+  // useEffect(() => {
+  //   dispatch(getUserProfile(userId));
+  //   dispatch(getUserId(userId));
+  // }, [dispatch, getUserProfile, getUserId, userId]);
 
   useEffect(() => {
     getCaptchaUrl();
@@ -24,6 +31,8 @@ const SignInModalWithFormik = ({ captchaUrl, getCaptchaUrl, ...props }) => {
     }
     return errors;
   };
+
+
 
   const submit = (values, { setSubmitting }) => {
     dispatch(login(values.email, values.password));

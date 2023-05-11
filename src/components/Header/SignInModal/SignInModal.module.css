@@ -51,6 +51,11 @@
   background-color: blue;
   color: white;
 }
+.loginForm .button button:hover {
+  border: 1px solid blue;
+  color: blue;
+  background-color: white;
+}
 
 .ant-modal-footer {
   display: none;

@@ -28,6 +28,7 @@ const ProfileInfo = (props) => {
           status={props.status}
           getUserStatus={props.getUserStatus}
           updateStatus={props.updateStatus}
+          
         />
       </div>
 
@@ -35,6 +36,8 @@ const ProfileInfo = (props) => {
         <ProfileData
           profile={props.profile}
           getUserProfile={props.getUserProfile}
+          userId={props.userId}
+          getUserId={props.getUserId}
         />
       </div>
     </div>

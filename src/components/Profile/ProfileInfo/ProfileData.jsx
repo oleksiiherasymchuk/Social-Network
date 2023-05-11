@@ -1,15 +1,17 @@
 import React, { useEffect } from "react";
 import s from "./ProfileData.module.css";
-import { useParams } from "react-router-dom";
+// import { useParams } from "react-router-dom";
 import man from "./images/man.png";
 
-const ProfileData = ({ getUserProfile, ...props }) => {
+const ProfileData = ({ getUserProfile, getUserId, ...props }) => {
   const onAvatarSelected = (e) => {
     if (e.target.files.length) {
       console.log(e.target);
       props.savePhoto(e.target.files[0]);
     }
   };
+  // let isOwner = !params.userId
+
   // const onSubmit = (formData) => {
   //     saveProfile(formData).then(
   //         () => {
@@ -17,21 +19,20 @@ const ProfileData = ({ getUserProfile, ...props }) => {
   //         }
   //     );
   // }
-  const params = useParams();
-  let userId = params.userId;
+  let userId = props.userId;
   useEffect(() => {
-    console.log('use effect in profile data');
     getUserProfile(userId);
-  }, [getUserProfile, userId]);
-  // let isOwner = !params.userId
+    getUserId(userId);
+  }, [getUserProfile, getUserId, userId]);
+
   return (
     <>
       <div className={s.profileData}>
         <div className={s.avatar}>
           <img
-            src={!props.profile ? "" : props.profile.photos.large || man}
+            src={!props.profile ? man : props.profile.photos.large || man}
             alt=""
-            style={ { height: '150px', width: '50%', borderRadius: '10px' } }
+            style={{ height: "150px", width: "50%", borderRadius: "10px" }}
           />
           <input type={"file"} onChange={onAvatarSelected} />
         </div>
@@ -42,12 +43,12 @@ const ProfileData = ({ getUserProfile, ...props }) => {
         </div>
         <div>
           <b>Looking for a job</b>: <span></span>
-          {!props.profile ? "" : props.profile.lookingForAJob ? "Yes" : "No"}
+          {!props.profile ? "No" : props.profile.lookingForAJob ? "Yes" : "No"}
         </div>
         <div>
           <b>My professional skills</b>: <span></span>
           {!props.profile
-            ? ""
+            ? "ruzophob"
             : !props.profile.lookingForAJobDescription
             ? " my soft and hard skills"
             : props.profile.lookingForAJobDescription}
@@ -55,7 +56,7 @@ const ProfileData = ({ getUserProfile, ...props }) => {
         <div>
           <b>About me</b>: <span></span>
           {!props.profile
-            ? ""
+            ? "ruzophob"
             : !props.profile.aboutMe
             ? props.profile.fullName
             : props.profile.aboutMe}
@@ -64,7 +65,7 @@ const ProfileData = ({ getUserProfile, ...props }) => {
           <b>Contacts</b>:
           <ul>
             {!props.profile
-              ? ""
+              ? "No contacts"
               : Object.keys(props.profile.contacts).map((c) => {
                   return (
                     <li key={c}>

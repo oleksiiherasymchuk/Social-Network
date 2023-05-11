@@ -1,11 +1,12 @@
-import React from "react";
+import React, { useEffect } from "react";
 import s from "./Login.module.css";
 import { reduxForm, Field } from "redux-form";
 import { connect } from "react-redux";
 import { getCaptchaUrl, login } from "../../redux/authReducer";
 import { Navigate } from "react-router-dom";
+// import { Navigate, useParams } from "react-router-dom";
 
-const Login = ({ captchaUrl, handleSubmit }) => {
+const Login = ({ captchaUrl, handleSubmit, ...props }) => {
   return (
     <div className={s.login}>
       <h1>Please, log in to see user's information</h1>
@@ -43,7 +44,7 @@ const Login = ({ captchaUrl, handleSubmit }) => {
           )}
         </div>
         {/* <button> */}
-          <button>Log in</button>
+        <button>Log in</button>
         {/* </button> */}
       </form>
     </div>
@@ -51,30 +52,21 @@ const Login = ({ captchaUrl, handleSubmit }) => {
 };
 const LoginReduxForm = reduxForm({ form: "login" })(Login);
 
-const LoginPage = (props) => {
-
+const LoginPage = ({getUserProfile, getUserId, ...props}) => {
   const onSubmit = (formData) => {
-    props.login(formData.email, formData.password, formData.rememberMe)
-    // .then(() => {
-    //   if (props.isAuth) {
-    //     console.log('is auth on login on submit');
-    //     return <Navigate to={'/profile'} />
-    //   }
-    // })
+    props.login(formData.email, formData.password, formData.rememberMe);
   };
 
-  if (!props.isAuth) {
-    console.log("not authorized in login component");
-  }
+  let userId = props.userId;
+  useEffect(() => {
+    getUserProfile(userId);
+    getUserId(userId);
+  }, [getUserProfile, getUserId, userId]);
 
   if (props.isAuth) {
-    console.log("you are authorized in login");
-    return <Navigate to={`/profile`} />
-    // return <Navigate to={`/profile/${userId}`} />
-    // withAuthRedirect HOC
-    // add withRouter
-    // return <Redirect to={"/news"}/>
+    return <Navigate to={`/profile/${userId}`} />
   }
+
 
   return (
     <>

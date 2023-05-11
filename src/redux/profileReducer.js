@@ -107,9 +107,7 @@ export const setUserProfile = (profile) => ({
 });
 
 export const getUserProfile = (userId) => async (dispatch) => {
-  // debugger
   const response = await usersAPI.getProfile(userId);
-  console.log(response);
   dispatch(setUserProfile(response.data));
 };
 

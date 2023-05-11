@@ -14,6 +14,8 @@ const Profile = (props) => {
           getUserStatus={props.getUserStatus}
           savePhoto={props.savePhoto}
           updateStatus={props.updateStatus}
+          getUserId={props.getUserId}
+          userId={props.userId}
         />
       </div>
 

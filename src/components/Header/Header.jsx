@@ -13,7 +13,6 @@ const Header = ({ profile, isAuth, ...props }) => {
   const dispatch = useDispatch()
 
   const logout = () => {
-    console.log("logout header");
     dispatch(toggleIsAuth(false))
     props.logout();
     return <Navigate to={"/login"} />;

@@ -30,7 +30,7 @@ const ProfileStatus = ({ getUserStatus, status, updateStatus, ...props }) => {
     <>
       {!editMode && (
         <div>
-          <b>User Status:</b>{" "}
+          <b>User Status:</b>{" type status "}
           <span onDoubleClick={activateEditMode}>
             {!props.profile ? "" : !status ? "Change your status..." : status}
           </span>

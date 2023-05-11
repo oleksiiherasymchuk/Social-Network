@@ -16,7 +16,7 @@ const Main = () => {
   return (
     <div className={s.main}>
          <Routes>
-            <Route path="/" element={<Login />} exact/>
+            <Route path="/" element={<ProfileContainer />} exact/>
             <Route path="/login" element={<Login />} exact/>
             <Route path="/profile/:userId?" element={<ProfileContainer />} exact/>
             <Route path="/messages" element={<Dialogs />} exact />
