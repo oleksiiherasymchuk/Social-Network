@@ -7,6 +7,7 @@ import profileReducer from "./profileReducer";
 import sidebarReducer from "./sidebarReducer";
 import usersReducer from "./usersReducer";
 import { reducer as formReducer } from "redux-form";
+import newsReducer from "./newsReducer";
 
 let reducers = combineReducers({
     app: appReducer,
@@ -15,6 +16,7 @@ let reducers = combineReducers({
     profilePage: profileReducer,
     sidebarPage: sidebarReducer,
     usersPage: usersReducer,
+    newsPage: newsReducer,
     form: formReducer,
 
 })

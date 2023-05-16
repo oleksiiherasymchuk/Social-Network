@@ -9,7 +9,11 @@ const User = (props) => {
       <NavLink to={"/profile/" + props.users.id}>
         <div className={s.user}>
           <div className={s.userAvatar}>
-            { props.users?.photos.small ?   <img src={props.users.photos.small} alt="userAvatar" /> : <img src={man} alt="userAvatar" />}
+            {props.users?.photos.small ? (
+              <img src={props.users.photos.small} alt="userAvatar" />
+            ) : (
+              <img src={man} alt="userAvatar" />
+            )}
           </div>
           <div className={s.userName}>{props.users.name}</div>
           <div className={s.follow}>

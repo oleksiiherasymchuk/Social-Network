@@ -3,7 +3,7 @@ import s from "./Login.module.css";
 import { reduxForm, Field } from "redux-form";
 import { connect } from "react-redux";
 import { getCaptchaUrl, login } from "../../redux/authReducer";
-import { Navigate } from "react-router-dom";
+import { Navigate, useParams } from "react-router-dom";
 // import { Navigate, useParams } from "react-router-dom";
 
 const Login = ({ captchaUrl, handleSubmit, ...props }) => {
@@ -57,11 +57,13 @@ const LoginPage = ({getUserProfile, getUserId, ...props}) => {
     props.login(formData.email, formData.password, formData.rememberMe);
   };
 
-  let userId = props.userId;
+  // let userId = props.userId;
+  let params = useParams()
+  let userId = params.userId
   useEffect(() => {
     getUserProfile(userId);
-    getUserId(userId);
-  }, [getUserProfile, getUserId, userId]);
+    // getUserId(userId);
+  }, [getUserProfile, userId]);
 
   if (props.isAuth) {
     return <Navigate to={`/profile/${userId}`} />

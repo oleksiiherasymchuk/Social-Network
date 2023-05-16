@@ -1,6 +1,6 @@
 import React, { useEffect } from "react";
 import s from "./ProfileData.module.css";
-// import { useParams } from "react-router-dom";
+import { useParams } from "react-router-dom";
 import man from "./images/man.png";
 
 const ProfileData = ({ getUserProfile, getUserId, ...props }) => {
@@ -19,11 +19,13 @@ const ProfileData = ({ getUserProfile, getUserId, ...props }) => {
   //         }
   //     );
   // }
-  let userId = props.userId;
+  // let userId = props.userId;
+  let params = useParams()
+  let userId = params.userId
   useEffect(() => {
     getUserProfile(userId);
-    getUserId(userId);
-  }, [getUserProfile, getUserId, userId]);
+    // getUserId(userId);
+  }, [getUserProfile, userId]);
 
   return (
     <>

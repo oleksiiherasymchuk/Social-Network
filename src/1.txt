@@ -1,8 +1,8 @@
-redirect to 22342 on login
-make sign in modal works
 websocket chat
-post update?
-signinmodal + formik
 validators for login and signinmodal 
 filter for Users
+profile component updateStatus and edit/saveProfile and post update?
+navbar isAuth ? log out : redirect to login page
+users redirect to user
+news + paginator?
 
