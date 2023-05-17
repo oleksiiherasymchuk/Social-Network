@@ -7,10 +7,10 @@ import {
 import Users from "../Users/Users";
 import News from "../News/News";
 import Games from "../Games/Games";
-import Settings from "../Settings/Settings";
 import Dialogs from "../Dialogs/Dialogs";
 import ProfileContainer from '../Profile/ProfileContainer';
 import Login from '../Login/Login';
+import ChatPage from '../ChatPage/ChatPage';
 
 const Main = () => {
   return (
@@ -23,7 +23,7 @@ const Main = () => {
             <Route path="/users" element={<Users />} exact />
             <Route path="/news" element={<News />} exact />
             <Route path="/games" element={<Games />} exact />
-            <Route path="/settings" element={<Settings />} exact />
+            <Route path="/chat" element={<ChatPage />} exact />
             {/* <Route path="*" render={() => <div>404 NOT FOUND</div>} /> */}
           </Routes>
     </div>

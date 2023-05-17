@@ -2,8 +2,13 @@
   width: 100%;
   min-height: 500px;
   display: flex;
-  justify-content: space-evenly;
+  justify-content: flex-start;
   align-items: center;
   flex-direction: column;
   padding-top: 20px;
+}
+.games h1 {
+  margin-bottom: 30px;
+  font-weight: bold;
+  font-size: 20px;
 }/*# sourceMappingURL=Games.module.css.map */

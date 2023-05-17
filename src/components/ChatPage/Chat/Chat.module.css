@@ -1,0 +1,10 @@
+.chat {
+  width: 95%;
+  min-height: 420px;
+  margin-bottom: 10px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-direction: column;
+  padding-top: 20px;
+}/*# sourceMappingURL=Chat.module.css.map */

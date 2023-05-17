@@ -1,0 +1,36 @@
+.message {
+  width: 100%;
+  min-height: 75px;
+  border: 1px solid ghostwhite;
+  border-radius: 10px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 5px;
+  padding: 15px;
+}
+.message .avatar {
+  height: 100%;
+  width: 15%;
+  display: flex;
+  flex-direction: column;
+}
+.message .avatar img {
+  width: 30%;
+  height: 30%;
+  align-self: center;
+  justify-self: center;
+}
+.message .avatar p {
+  margin-top: 10px;
+  font-weight: bold;
+  font-size: 12px;
+  text-align: center;
+}
+.messageText {
+  height: 100%;
+  width: 80%;
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+}/*# sourceMappingURL=Message.module.css.map */

@@ -1,0 +1,9 @@
+.messages {
+  width: 100%;
+  border: 1px solid gainsboro;
+  border-radius: 10px;
+  max-height: 300px;
+  overflow-y: auto;
+  margin-bottom: 15px;
+  padding: 10px;
+}/*# sourceMappingURL=Messages.module.css.map */

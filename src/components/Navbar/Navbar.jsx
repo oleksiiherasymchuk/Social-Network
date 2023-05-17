@@ -1,7 +1,7 @@
 import React from "react";
 import s from "./Navbar.module.css";
 import message from "./images/message.png";
-import cog from "./images/bxs-cog.svg";
+import chat from "./images/chat.png";
 import game from "./images/bxs-game.svg";
 import news from "./images/bxs-news.svg";
 import user from "./images/bxs-user.svg";
@@ -44,9 +44,9 @@ const Navbar = () => {
       </div>
       <div className={s.navbarItems}>
         <span>
-          <img src={cog} alt="" />
+          <img src={chat} alt="" />
         </span>
-        <NavLink to="/settings" className={({isActive}) => (isActive ? `${s.activeLink}` : '')}>Settings</NavLink>
+        <NavLink to="/chat" className={({isActive}) => (isActive ? `${s.activeLink}` : '')}>Chat</NavLink>
       </div>
       <div className={s.navbarItems}>
         <span>
