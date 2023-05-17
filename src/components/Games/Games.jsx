@@ -1,8 +1,12 @@
 import React from 'react'
+import s from './Games.module.css'
+import Puzzle from './Puzzle/Puzzle'
 
 const Games = () => {
   return (
-    <div>Games</div>
+    <div className={s.games}>
+      <Puzzle />
+    </div>
   )
 }
 

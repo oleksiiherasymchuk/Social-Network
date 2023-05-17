@@ -1,1 +1,1 @@
-{"version":3,"sources":[],"names":[],"mappings":"","file":"Puzzle.module.css"}
+{"version":3,"sources":["Puzzle.module.scss","Puzzle.module.css"],"names":[],"mappings":"AAAA;EACI,WAAA;EACA,YAAA;EACA,aAAA;EACA,uBAAA;EACA,mBAAA;ACCJ;ADCI;EACI,YAAA;EACA,YAAA;EACA,YAAA;EACA,mBAAA;EACA,sBAAA;EACA,YAAA;ACCR;ADEI;EACI,WAAA;EACA,sBAAA;EACA,uBAAA;ACAR","file":"Puzzle.module.css"}
