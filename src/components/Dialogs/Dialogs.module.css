@@ -1,1 +1,14 @@
-/*# sourceMappingURL=Dialogs.module.css.map */
+.dialogs {
+  width: 100%;
+  min-height: 500px;
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  flex-direction: column;
+  padding-top: 20px;
+}
+.dialogs h1 {
+  margin-bottom: 30px;
+  font-weight: bold;
+  font-size: 20px;
+}/*# sourceMappingURL=Dialogs.module.css.map */

@@ -1,0 +1,35 @@
+.addMessageForm {
+  width: 95%;
+  min-height: 90px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
+.addMessageForm textarea {
+  resize: none;
+  width: 100%;
+  height: -moz-max-content;
+  height: max-content;
+  border: 1px solid gainsboro;
+  border-radius: 10px;
+  padding-top: 5px;
+  padding-left: 5px;
+  overflow-x: auto;
+}
+.addMessageForm button {
+  width: 60px;
+  height: 30px;
+  color: white;
+  background-color: blue;
+  border: none;
+  border-radius: 10px;
+  justify-self: flex-end;
+  align-self: flex-end;
+  margin-top: 5px;
+}
+.addMessageForm button:hover {
+  color: blue;
+  border: 1px solid blue;
+  background-color: white;
+}/*# sourceMappingURL=AddMessageFrom.module.css.map */
