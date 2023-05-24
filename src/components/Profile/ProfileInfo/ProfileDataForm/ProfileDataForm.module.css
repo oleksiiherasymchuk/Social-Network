@@ -1,0 +1,96 @@
+.profileDataForm {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: flex-start;
+  align-items: flex-start;
+  flex-direction: column;
+  padding-left: 5px;
+}
+.profileDataForm .saveButton {
+  align-items: center;
+  height: 30px;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.profileDataForm .saveButton button {
+  height: 30px;
+  width: 30%;
+  background-color: green;
+  border: none;
+  border-radius: 4px;
+  text-align: center;
+  margin-top: 5px;
+  color: white;
+}
+.profileDataForm .saveButton button:hover {
+  background-color: white;
+  color: green;
+  border: 1px solid green;
+}
+.profileDataFormData {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: flex-start;
+  padding-left: 5px;
+  margin-top: 10px;
+}
+.profileDataFormData div {
+  margin-bottom: 5px;
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+  margin-left: 5px;
+}
+.profileDataFormData .info {
+  margin-bottom: 5px;
+  display: flex;
+  justify-content: space-between;
+  width: 75%;
+  padding-left: 30px;
+  flex-direction: column;
+}
+.profileDataFormData .info textarea {
+  resize: none;
+  margin-left: 5px;
+  border: 1px solid gainsboro;
+  border-radius: 4px;
+  padding-left: 5px;
+  width: 70%;
+}
+.profileDataFormData .info input {
+  margin-left: 5px;
+  border: 1px solid gainsboro;
+  border-radius: 4px;
+  padding-left: 5px;
+  width: 70%;
+}
+.profileDataFormData .contacts {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+}
+.profileDataFormData .contacts p {
+  font-weight: bold;
+  font-size: 16px;
+  width: 100%;
+}
+.profileDataFormData .contacts b {
+  padding-left: 30px;
+  display: flex;
+  margin-top: 5px;
+  width: 75%;
+  justify-content: space-between;
+}
+.profileDataFormData .contacts b input {
+  margin-left: 5px;
+  border: 1px solid gainsboro;
+  border-radius: 4px;
+  padding-left: 5px;
+  width: 70%;
+}/*# sourceMappingURL=ProfileDataForm.module.css.map */

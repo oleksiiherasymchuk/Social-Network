@@ -1,10 +1,6 @@
-websocket chat
-validators for login and signinmodal 
-filter for Users
-profile component updateStatus and edit/saveProfile and post update?
-navbar isAuth ? log out : redirect to login page
-users redirect to user
-news + paginator?
-
-
-overfloxY: auto - scroll
+1. profile component updateStatus and edit/saveProfile and post update?
+2. filter for Users, follow/unfollow users 
+3. websocket chat
+4. validators for login and signinmodal
+5. BLL messages, scroll users foolowingInProgress
+6. login render authorizedId the second time

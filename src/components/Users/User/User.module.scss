@@ -10,6 +10,13 @@
     padding-bottom: 5px;
     border-radius: 10px;
 
+    .link{
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex-direction: column;
+    }
+
     &Avatar{
         width: 100px;
         height: 100px;
@@ -18,6 +25,7 @@
         display: flex;
         justify-content: center;
         align-items: center;
+        margin-bottom: 5px;
         img{
             width: 100%;
             height: 100%;

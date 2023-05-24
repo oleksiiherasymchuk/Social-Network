@@ -3,8 +3,7 @@ import s from "./Login.module.css";
 import { reduxForm, Field } from "redux-form";
 import { connect } from "react-redux";
 import { getCaptchaUrl, login } from "../../redux/authReducer";
-import { Navigate, useParams } from "react-router-dom";
-// import { Navigate, useParams } from "react-router-dom";
+import { Navigate } from "react-router-dom";
 
 const Login = ({ captchaUrl, handleSubmit, ...props }) => {
   return (
@@ -43,32 +42,38 @@ const Login = ({ captchaUrl, handleSubmit, ...props }) => {
             />
           )}
         </div>
-        {/* <button> */}
         <button>Log in</button>
-        {/* </button> */}
       </form>
     </div>
   );
 };
 const LoginReduxForm = reduxForm({ form: "login" })(Login);
 
-const LoginPage = ({getUserProfile, getUserId, ...props}) => {
+const LoginPage = ({
+  getUserProfile,
+  getUserId,
+  getAuthUserData,
+  isAuth,
+  ...props
+}) => {
   const onSubmit = (formData) => {
     props.login(formData.email, formData.password, formData.rememberMe);
   };
 
-  // let userId = props.userId;
-  let params = useParams()
-  let userId = params.userId
+  let userId = props.userId;
   useEffect(() => {
-    getUserProfile(userId);
-    // getUserId(userId);
-  }, [getUserProfile, userId]);
+    // console.log('login useEffect', userId);
+  }, [userId])
 
-  if (props.isAuth) {
-    return <Navigate to={`/profile/${userId}`} />
+  if(isAuth){
+    console.log(isAuth);
+    return <Navigate to={'/profile/'} />
   }
 
+  if(isAuth){
+    console.log(isAuth);
+    return <Navigate to={'/login'} />
+  }
 
   return (
     <>

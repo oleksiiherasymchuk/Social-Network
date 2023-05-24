@@ -6,17 +6,9 @@ import { useDispatch, useSelector } from "react-redux";
 import { CaptchaUrl } from "../../../redux/authSelector";
 import { getCaptchaUrl, login } from "../../../redux/authReducer";
 import s from "./SignInModal.module.css";
-// import { getUserProfile } from "../../../redux/profileReducer";
-// import { Navigate } from "react-router-dom";
 
 const SignInModalWithFormik = ({ captchaUrl, getCaptchaUrl, ...props }) => {
   const dispatch = useDispatch();
-
-  // let userId = props.userId;
-  // useEffect(() => {
-  //   dispatch(getUserProfile(userId));
-  //   dispatch(getUserId(userId));
-  // }, [dispatch, getUserProfile, getUserId, userId]);
 
   useEffect(() => {
     getCaptchaUrl();
@@ -32,12 +24,9 @@ const SignInModalWithFormik = ({ captchaUrl, getCaptchaUrl, ...props }) => {
     return errors;
   };
 
-
-
   const submit = (values, { setSubmitting }) => {
     dispatch(login(values.email, values.password));
     setSubmitting(false);
-    // return <Navigate to={`/profile/22342`} />;
   };
 
   return (
@@ -55,14 +44,22 @@ const SignInModalWithFormik = ({ captchaUrl, getCaptchaUrl, ...props }) => {
               className={s.formInput}
               placeholder="Enter your email"
             />
-            <ErrorMessage name="email" component="div" />
+            <ErrorMessage
+              name="email"
+              component="div"
+              style={{ color: "red", display: "flex", height: "30px" }}
+            />
             <Field
               type="password"
               name="password"
               className={s.formInput}
               placeholder="Enter your password"
             />
-            <ErrorMessage name="password" component="div" />
+            <ErrorMessage
+              name="password"
+              component="div"
+              style={{ color: "red", display: "flex", height: "30px" }}
+            />
             <label>
               <Field
                 type="checkbox"
@@ -133,6 +130,8 @@ const SignInModal = (props) => {
           alignItems: "center",
         }}
       >
+        {/* {isAuth && <>{userName}</>}
+        {!isAuth && <>Sign In</>} */}
         Sign In
       </div>
       <Modal

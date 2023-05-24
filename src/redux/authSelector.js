@@ -5,3 +5,7 @@ export const getIsAuth = (state) => {
 export const CaptchaUrl = (state) => {
     return state.auth.captchaUrl
 }
+
+export const getAuthProfile = (state) => {
+    return state.auth.authProfile
+}

@@ -5,13 +5,16 @@ import {
   getUserStatus,
   savePhoto,
   updateStatus,
+  saveProfile,
 } from "../../redux/profileReducer";
+import { toggleIsAuth, getAuthUserData, login } from "../../redux/authReducer";
 import { connect } from "react-redux";
 import { compose } from "redux";
 import Profile from "./Profile";
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
 import Login from "../Login/Login";
-import { getUserId } from "../../redux/authReducer";
+import { getAuthProfile } from "../../redux/authReducer";
+import { Navigate, useParams } from "react-router-dom";
 
 const ProfileContainer = ({
   getUserProfile,
@@ -22,44 +25,53 @@ const ProfileContainer = ({
   savePhoto,
   updateStatus,
   isAuth,
-  userId,
-  getUserId,
+  getAuthUserData,
+  login,
+  authorizedUserId,
+  saveProfile,
 
   ...props
 }) => {
-  const [isAuthenticated, setIsAuthenticated] = useState(false);
+  let params = useParams();
+  let userId = params.userId;
+  const isOwner = authorizedUserId == userId;
 
   useEffect(() => {
-    setIsAuthenticated(!!isAuth);
-  }, [isAuth, isAuthenticated, userId]);
+    getUserProfile(userId);
+    getUserStatus(userId);
+  }, [isAuth, getUserProfile, getUserStatus, userId]);
+
+  if (!userId) {
+    userId = authorizedUserId;
+    userId = 22342;
+    getUserProfile(userId);
+    getUserStatus(userId);
+    return <Navigate to={`/profile/${userId}`} />;
+  }
+
+  if (!isAuth) return <Navigate to={`/login`} />;
+
+  // getUserProfile(userId);
+  // getUserStatus(userId);
 
   return (
     <>
-      {!isAuthenticated && (
-        <Login
-          getUserProfile={getUserProfile}
-          getUserId={getUserId}
-          userId={userId}
-        />
-      )}
+      {!isAuth && <Login {...props} />}
       {isAuth && (
         <Profile
           {...props}
+          isOwner={isOwner}
           profile={profile}
           status={status}
+          savePhoto={savePhoto}
+          updateStatus={updateStatus}
           addPost={props.addPost}
           deletePost={props.deletePost}
           posts={posts}
-          getUserStatus={getUserStatus}
-          savePhoto={savePhoto}
-          updateStatus={updateStatus}
-          getUserProfile={getUserProfile}
-          getUserId={getUserId}
-          userId={userId}
+          saveProfile={saveProfile}
         />
       )}
     </>
-    // isOwner={!props.match.params.userId}
   );
 };
 
@@ -68,7 +80,7 @@ const mapStateToProps = (state) => {
     posts: state.profilePage.posts,
     profile: state.profilePage.profile,
     status: state.profilePage.status,
-    userId: state.auth.userId,
+    authorizedUserId: state.auth.userId,
     isAuth: state.auth.isAuth,
   };
 };
@@ -81,6 +93,10 @@ export default compose(
     getUserStatus,
     savePhoto,
     updateStatus,
-    getUserId,
+    toggleIsAuth,
+    getAuthUserData,
+    login,
+    getAuthProfile,
+    saveProfile,
   })
 )(ProfileContainer);

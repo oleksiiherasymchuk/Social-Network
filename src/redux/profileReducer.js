@@ -1,5 +1,6 @@
 import { v1 } from "uuid";
 import { profileAPI, usersAPI } from "../api/api";
+import { stopSubmit } from "redux-form";
 
 const ADD_POST = "ADD_POST";
 const SET_STATUS = "SET_STATUS";
@@ -73,7 +74,7 @@ export const profileReducer = (state = initialProfileState, action) => {
     case SET_USER_PROFILE: {
       return {
         ...state,
-        profile: action.profile,
+        profile: action.payload,
       };
     }
     case SAVE_PHOTO_SUCCESS: {
@@ -103,16 +104,19 @@ export const savePhotoSuccess = (photos) => ({
 export const deletePost = (postID) => ({ type: DELETE_POST, postID });
 export const setUserProfile = (profile) => ({
   type: SET_USER_PROFILE,
-  profile,
+  payload: profile,
 });
 
 export const getUserProfile = (userId) => async (dispatch) => {
   const response = await usersAPI.getProfile(userId);
+  // console.log("getUserProfile PR", response.data);
+  // debugger
   dispatch(setUserProfile(response.data));
 };
 
 export const getUserStatus = (userId) => async (dispatch) => {
   const response = await profileAPI.getStatus(userId);
+  // console.log(response);
   dispatch(setStatus(response.data));
 };
 
@@ -131,15 +135,17 @@ export const updateStatus = (status) => async (dispatch) => {
   }
 };
 
-export default profileReducer;
+export const saveProfile = (profile) => async (dispatch, getState) => {
+  const userId = getState().auth.userId;
+  // console.log(userId);
+  const response = await profileAPI.saveProfile(profile);
+  if (response.data.resultCode === 0) {
+    // debugger;
+    dispatch(getUserProfile(userId));
+  } else {
+    dispatch(stopSubmit("editProfile", { _error: response.data.messages[0] }));
+    return Promise.reject(response.data.messages[0]);
+  }
+};
 
-// export const saveProfile = (profile) => async (dispatch, getState) => {
-//     const userId = getState().auth.userId;
-//     const response = await profileAPI.saveProfile(profile);
-//     if (response.data.resultCode === 0) {
-//         dispatch(getUserProfile(userId));
-//     } else {
-//         dispatch(stopSubmit("edit-profile", {_error: response.data.messages[0] }));
-//         return Promise.reject(response.data.messages[0]);
-//     }
-// }
+export default profileReducer;

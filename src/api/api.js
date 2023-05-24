@@ -33,7 +33,7 @@ export const securityAPI = {
 
 export const profileAPI = {
   getProfile(userId) {
-    return instance.get(`profile/` + userId);
+    return instance.get(`profile/${userId}`);
   },
   getStatus(userId) {
     return instance.get(`profile/status/${userId}`);
@@ -57,7 +57,7 @@ export const profileAPI = {
 
 export const usersAPI = {
   getProfile(userId) {
-    console.warn("Obsolete method. Please profileAPI object.");
+    // console.warn("Obsolete method. Please profileAPI object.");
     return profileAPI.getProfile(userId);
   },
   async getUsers(currentPage = 1, pageSize = 10, term = "", friend = null) {

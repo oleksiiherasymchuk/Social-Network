@@ -17,7 +17,7 @@
     padding-left: 5px;
   }
 
-  .captcha{
+  .captcha {
     margin-top: 10px;
     margin-bottom: 10px;
     display: flex;
@@ -28,7 +28,7 @@
     width: 100%;
     flex-direction: column;
 
-    input{
+    input {
       border: 1px solid gainsboro;
       width: 40%;
       height: 30px;
@@ -41,13 +41,13 @@
     width: 5%;
   }
 
-  .button{
+  .button {
     width: 100%;
     display: flex;
     justify-content: center;
     align-items: center;
     height: 40px;
-    button{
+    button {
       width: 100px;
       height: 30px;
       border: none;
@@ -55,16 +55,14 @@
       background-color: blue;
       color: white;
     }
-    button:hover{
+    button:hover {
       border: 1px solid blue;
       color: blue;
       background-color: white;
     }
   }
-
-
 }
 
-.ant-modal-footer{
+.ant-modal-footer {
   display: none;
 }

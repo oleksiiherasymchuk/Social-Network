@@ -1,21 +1,24 @@
-import React from "react";
+import React, { useEffect } from "react";
 import s from "./Profile.module.css";
 import MyPosts from "./MyPosts/MyPosts";
 import ProfileInfo from "./ProfileInfo/ProfileInfo";
 
-const Profile = (props) => {
+const Profile = ({ isOwner, ...props }) => {
+  useEffect(() => {
+    // debugger
+    console.log(isOwner);
+  }, [isOwner]);
+
   return (
     <div className={s.profile}>
       <div className={s.profileInfo}>
         <ProfileInfo
           profile={props.profile}
-          getUserProfile={props.getUserProfile}
           status={props.status}
-          getUserStatus={props.getUserStatus}
           savePhoto={props.savePhoto}
           updateStatus={props.updateStatus}
-          getUserId={props.getUserId}
-          userId={props.userId}
+          isOwner={isOwner}
+          saveProfile={props.saveProfile}
         />
       </div>
 
@@ -24,6 +27,7 @@ const Profile = (props) => {
           posts={props.posts}
           addPost={props.addPost}
           deletePost={props.deletePost}
+          isOwner={isOwner}
         />
       </div>
     </div>

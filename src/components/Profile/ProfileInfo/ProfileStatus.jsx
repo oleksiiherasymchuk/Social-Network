@@ -1,15 +1,7 @@
-import React, { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
+import React, { useState } from "react";
 
-const ProfileStatus = ({ getUserStatus, status, updateStatus, ...props }) => {
-  const params = useParams();
-  let userId = params.userId;
-
+const ProfileStatus = ({ status, updateStatus, ...props }) => {
   const [editMode, setEditMode] = useState(false);
-
-  useEffect(() => {
-    getUserStatus(userId);
-  }, [getUserStatus, userId, status]);
 
   const activateEditMode = () => {
     setEditMode(true);
@@ -22,7 +14,7 @@ const ProfileStatus = ({ getUserStatus, status, updateStatus, ...props }) => {
 
   const onStatusChange = (e) => {
     // setStatus(e.currentTarget.value);
-    console.log(e.currentTarget.value);
+    // console.log(e.currentTarget.value);
     updateStatus(e.currentTarget.value);
   };
 
@@ -30,7 +22,7 @@ const ProfileStatus = ({ getUserStatus, status, updateStatus, ...props }) => {
     <>
       {!editMode && (
         <div>
-          <b>User Status:</b>{" type status "}
+          <b>User Status:</b>{" "}
           <span onDoubleClick={activateEditMode}>
             {!props.profile ? "" : !status ? "Change your status..." : status}
           </span>
