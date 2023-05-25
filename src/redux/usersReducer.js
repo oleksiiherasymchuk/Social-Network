@@ -9,6 +9,8 @@ const TOGGLE_IS_FETCHING = "users/TOGGLE_IS_FETCHING";
 const TOGGLE_IS_FOLLOWING_PROGRESS = "users/TOGGLE_IS_FOLLOWING_PROGRESS";
 const SET_FILTER = "users/SET_FILTER";
 const SET_PAGE_SIZE = "users/SET_PAGE_SIZE";
+const FOLLOWED_USER = "users/FOLLOWED_USER";
+const UNFOLLOWED_USER = "users/UNFOLLOWED_USER";
 
 let initialUsersState = {
   users: [],
@@ -17,6 +19,7 @@ let initialUsersState = {
   totalUsersCount: 0,
   currentPage: 1,
   followingInProgress: [],
+  followingUsers: [],
   filter: {
     term: "",
     friend: null,
@@ -34,8 +37,9 @@ const usersReducer = (state = initialUsersState, action) => {
           }
           return u;
         }),
+        // followingInProgress: [...state.followingInProgress, action.userId],
       };
-    case UNFOLLOW: {
+    case UNFOLLOW:
       return {
         ...state,
         users: state.users.map((u) => {
@@ -44,8 +48,8 @@ const usersReducer = (state = initialUsersState, action) => {
           }
           return u;
         }),
+        // followingInProgress: state.followingInProgress.filter((id) => id !== action.userId),
       };
-    }
     case SET_USERS:
       return {
         ...state,
@@ -83,6 +87,16 @@ const usersReducer = (state = initialUsersState, action) => {
         ...state,
         pageSize: action.payload,
       };
+    case FOLLOWED_USER:
+      return {
+        ...state,
+        followingUsers: [...state.followingUsers, action.payload],
+      };
+    case UNFOLLOWED_USER:
+      return {
+        ...state,
+        followingUsers: state.followingUsers.filter((id) => id !== action.payload),
+      };
     default:
       return state;
   }
@@ -102,6 +116,14 @@ export const setTotalUsersCount = (totalUsersCount) => ({
 export const toggleIsFetching = (isFetching) => ({
   type: TOGGLE_IS_FETCHING,
   isFetching,
+});
+export const followedUser = (userId) => ({
+  type: FOLLOWED_USER,
+  payload: userId,
+});
+export const unfollowedUser = (userId) => ({
+  type: UNFOLLOWED_USER,
+  payload: userId,
 });
 export const setFilter = (filter) => ({ type: SET_FILTER, payload: filter });
 export const toggleFollowingProgress = (isFetching, userId) => ({
@@ -136,17 +158,15 @@ export const follow = (userId) => {
   return async (dispatch) => {
     dispatch(toggleFollowingProgress(true, userId));
     let response = await usersAPI.follow(userId);
-    debugger;
     if (response.data.resultCode === 0) {
       dispatch(followSuccess(userId));
-      console.log(userId);
+      dispatch(followedUser(userId));
     }
     dispatch(toggleFollowingProgress(false, userId));
   };
 };
 
 export const unfollow = (userId) => {
-  debugger
   return async (dispatch) => {
     dispatch(toggleFollowingProgress(true, userId));
 
@@ -154,6 +174,7 @@ export const unfollow = (userId) => {
 
     if (response.data.resultCode === 0) {
       dispatch(unfollowSuccess(userId));
+      dispatch(unfollowedUser(userId));
     }
 
     dispatch(toggleFollowingProgress(false, userId));

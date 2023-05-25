@@ -1,5 +1,5 @@
-1. profile component updateStatus and edit/saveProfile and post update?
-2. filter for Users, follow/unfollow users 
+1. post update?
+2. filter for Users, render followedUsers
 3. websocket chat
 4. validators for login and signinmodal
 5. BLL messages, scroll users foolowingInProgress

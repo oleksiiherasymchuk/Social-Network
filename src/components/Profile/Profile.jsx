@@ -1,13 +1,13 @@
-import React, { useEffect } from "react";
+import React, {  } from "react";
 import s from "./Profile.module.css";
 import MyPosts from "./MyPosts/MyPosts";
 import ProfileInfo from "./ProfileInfo/ProfileInfo";
 
 const Profile = ({ isOwner, ...props }) => {
-  useEffect(() => {
-    // debugger
-    console.log(isOwner);
-  }, [isOwner]);
+  // useEffect(() => {
+  //   // debugger
+  //   console.log(isOwner);
+  // }, [isOwner]);
 
   return (
     <div className={s.profile}>

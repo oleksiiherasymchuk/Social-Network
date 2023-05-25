@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React from "react";
 import s from "./Login.module.css";
 import { reduxForm, Field } from "redux-form";
 import { connect } from "react-redux";
@@ -50,9 +50,6 @@ const Login = ({ captchaUrl, handleSubmit, ...props }) => {
 const LoginReduxForm = reduxForm({ form: "login" })(Login);
 
 const LoginPage = ({
-  getUserProfile,
-  getUserId,
-  getAuthUserData,
   isAuth,
   ...props
 }) => {
@@ -60,19 +57,11 @@ const LoginPage = ({
     props.login(formData.email, formData.password, formData.rememberMe);
   };
 
-  let userId = props.userId;
-  useEffect(() => {
-    // console.log('login useEffect', userId);
-  }, [userId])
+  // let userId = props.userId;
 
-  if(isAuth){
-    console.log(isAuth);
-    return <Navigate to={'/profile/'} />
-  }
-
-  if(isAuth){
-    console.log(isAuth);
-    return <Navigate to={'/login'} />
+  if (isAuth) {
+    // console.log(props.userId);
+    return <Navigate to={`/profile/${props.userId}`} />;
   }
 
   return (
@@ -89,6 +78,7 @@ const LoginPage = ({
 const mapStateToProps = (state) => ({
   captchaUrl: state.auth.captchaUrl,
   isAuth: state.auth.isAuth,
+  userId: state.auth.userId
 });
 
 export default connect(mapStateToProps, { login, getCaptchaUrl })(LoginPage);

@@ -16,20 +16,30 @@ const Users = ({
   pageSize,
   totalUsersCount,
   filter,
+  ...props
 }) => {
   useEffect(() => {
-    toggleIsFetching(true);
-    requestUsers(currentPage, pageSize, totalUsersCount, filter).then(() => {
-      toggleIsFetching(false);
-    });
+    // toggleIsFetching(true);
+    requestUsers(currentPage, pageSize, totalUsersCount)
+    // console.log('users');
+    // requestUsers(currentPage, pageSize, totalUsersCount, filter)
+    // requestUsers()
+    // .then(() => {
+    //   toggleIsFetching(false);
+    // });
   }, [
-    requestUsers,
-    toggleIsFetching,
-    currentPage,
-    filter,
-    totalUsersCount,
-    pageSize,
+    // requestUsers,
+    // toggleIsFetching,
+    // currentPage,
+    // filter,
+    // totalUsersCount,
+    // pageSize,
   ]);
+  // useEffect(() => {
+  //   if (users.length > 0) {
+  //     console.log(users);
+  //   }
+  // }, [users]);
 
   return (
     <div className={s.usersComponent}>
@@ -47,7 +57,7 @@ const Users = ({
             {users.map((user) => {
               return (
                 <div className={s.userInfo} key={user.id}>
-                  <User users={user} />
+                  <User users={user} {...props} />
                 </div>
               );
             })}

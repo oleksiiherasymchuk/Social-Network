@@ -1,15 +1,23 @@
-import React, {  } from "react";
+import React, { useEffect } from "react";
 import s from "./User.module.css";
 import man from "../../Profile/ProfileInfo/images/man.png";
 import { NavLink } from "react-router-dom";
-import { useSelector } from "react-redux";
-import { getFollowingInProgress } from "../../../redux/usersSelector";
+import { useDispatch, useSelector } from "react-redux";
+import {
+  getFollowedUsers,
+  getFollowingInProgress,
+} from "../../../redux/usersSelector";
 import { follow, unfollow } from "../../../redux/usersReducer";
+import { getIsAuth } from "../../../redux/authSelector";
 
-const User = ({users, ...props}) => {
+const User = ({ users, ...props }) => {
+  const followedUsers = useSelector(getFollowedUsers);
   const followingInProgress = useSelector(getFollowingInProgress);
-  // console.log(followingInProgress);
-
+  const isAuth = useSelector(getIsAuth);
+  const dispatch = useDispatch();
+  useEffect(() => {
+    console.log(followedUsers);
+  }, [followedUsers]);
 
   return (
     <>
@@ -27,15 +35,25 @@ const User = ({users, ...props}) => {
         <div className={s.follow}>
           {users.followed ? (
             <button
-              disabled={followingInProgress.some((id) => id === users.id)}
-              onClick={() => unfollow(users.id)}
+              disabled={
+                !isAuth || followingInProgress.some((id) => id === users.id)
+                // followedUsers.includes(users.id)
+              }
+              onClick={() => {
+                dispatch(unfollow(users.id));
+              }}
             >
               Unfollow
             </button>
           ) : (
             <button
-              disabled={followingInProgress.some((id) => id === users.id)}
-              onClick={() => follow(users.id)}
+              disabled={
+                !isAuth || followingInProgress.some((id) => id === users.id)
+                // followedUsers.includes(users.id)
+              }
+              onClick={() => {
+                dispatch(follow(users.id));
+              }}
             >
               Follow
             </button>
