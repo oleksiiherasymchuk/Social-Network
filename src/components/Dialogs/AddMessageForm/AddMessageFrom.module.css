@@ -17,6 +17,12 @@
   padding-left: 5px;
   overflow-x: auto;
 }
+.addMessageForm textarea:-moz-placeholder-shown {
+  font-style: italic;
+}
+.addMessageForm textarea:placeholder-shown {
+  font-style: italic;
+}
 .addMessageForm button {
   width: 60px;
   height: 30px;

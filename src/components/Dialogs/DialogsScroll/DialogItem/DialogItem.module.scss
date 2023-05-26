@@ -1,21 +1,32 @@
-.dialogItem{
+.dialog {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  .dialogItem {
     margin: 10px 30px 10px 0;
+    height: 50px;
+    width: 50px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    // flex-direction: column;
+    text-align: center;
 
-    .dialogAvatar{
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        border: 1px solid gainsboro;
+    .dialogAvatar {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      border: 1px solid gainsboro;
+      border-radius: 50%;
+
+      img {
+        max-width: 80%;
         border-radius: 50%;
-
-        img{
-            max-width: 80%;
-            border-radius: 50%;
-        }
+      }
     }
 
-    p{
-        font-size: 14px;
+    p {
+      font-size: 14px;
     }
-   
+  }
 }

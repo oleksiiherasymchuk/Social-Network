@@ -1,5 +1,5 @@
 .dialogsScroll {
-  width: calc(100vh + 500px);
+  width: 100vh;
   height: 70px;
   border-top: 2px solid gainsboro;
   border-bottom: 2px solid gainsboro;
@@ -8,4 +8,20 @@
   align-items: center;
   padding: 10px;
   overflow-x: auto;
+}
+.dialogsScrollItems {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.dialogsScrollEmpty {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.dialogsScrollEmptyP {
+  font-size: 14px;
+  font-style: italic;
+  font-weight: bold;
 }/*# sourceMappingURL=DialogsScroll.module.css.map */

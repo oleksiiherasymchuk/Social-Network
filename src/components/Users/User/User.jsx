@@ -16,7 +16,7 @@ const User = ({ users, ...props }) => {
   const isAuth = useSelector(getIsAuth);
   const dispatch = useDispatch();
   useEffect(() => {
-    console.log(followedUsers);
+    // console.log(followedUsers);
   }, [followedUsers]);
 
   return (
@@ -33,6 +33,7 @@ const User = ({ users, ...props }) => {
           <div className={s.userName}>{users.name}</div>
         </NavLink>
         <div className={s.follow}>
+          {/* all users from Users */}
           {users.followed ? (
             <button
               disabled={

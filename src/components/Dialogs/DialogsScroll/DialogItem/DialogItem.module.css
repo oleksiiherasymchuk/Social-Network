@@ -1,17 +1,28 @@
-.dialogItem {
-  margin: 10px 30px 10px 0;
+.dialog {
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
-.dialogItem .dialogAvatar {
+.dialog .dialogItem {
+  margin: 10px 30px 10px 0;
+  height: 50px;
+  width: 50px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+}
+.dialog .dialogItem .dialogAvatar {
   display: flex;
   justify-content: center;
   align-items: center;
   border: 1px solid gainsboro;
   border-radius: 50%;
 }
-.dialogItem .dialogAvatar img {
+.dialog .dialogItem .dialogAvatar img {
   max-width: 80%;
   border-radius: 50%;
 }
-.dialogItem p {
+.dialog .dialogItem p {
   font-size: 14px;
 }/*# sourceMappingURL=DialogItem.module.css.map */

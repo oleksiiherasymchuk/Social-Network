@@ -2,5 +2,6 @@
 2. filter for Users, render followedUsers
 3. websocket chat
 4. validators for login and signinmodal
-5. BLL messages, scroll users foolowingInProgress
+5. scroll users renders the same time how clicked follow, choose dialog with follower 
 6. login render authorizedId the second time
+7. follow/unfollow login/logout followedUsers not show
