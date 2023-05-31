@@ -34,7 +34,7 @@ const ProfileContainer = ({
 }) => {
   let params = useParams();
   let userId = params.userId;
-  const isOwner = authorizedUserId == userId;
+  const isOwner = authorizedUserId === +userId;
 
   useEffect(() => {
     getUserProfile(userId);

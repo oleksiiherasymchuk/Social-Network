@@ -91,11 +91,15 @@ const usersReducer = (state = initialUsersState, action) => {
       return {
         ...state,
         followingUsers: [...state.followingUsers, action.payload],
+        // followingInProgress: [...state.followingInProgress, action.userId]
       };
     case UNFOLLOWED_USER:
       return {
         ...state,
-        followingUsers: state.followingUsers.filter((id) => id !== action.payload),
+        followingUsers: state.followingUsers.filter(
+          (id) => id !== action.payload
+        ),
+        // followingInProgress: state.followingInProgress.filter((id) => id !== action.userId),
       };
     default:
       return state;
@@ -136,18 +140,47 @@ export const setPageSize = (pageSize) => ({
   payload: pageSize,
 });
 
-export const requestUsers = (page, pageSize, filter) => {
+export const requestUsers = (page, pageSize, filter, followingOnly) => {
   return async (dispatch) => {
     dispatch(toggleIsFetching(true));
     dispatch(setCurrentPage(page));
     dispatch(setFilter(filter));
 
-    let data = await usersAPI.getUsers(
-      page,
-      pageSize
-      // filter.term,
-      // filter.friend
-    );
+    // let data = await usersAPI.getUsers(
+    //   page,
+    //   pageSize,
+    //   filter.term,
+    //   filter.friend
+    // );
+
+    let data;
+
+    if (followingOnly) {
+      data = await usersAPI.getFollowingUsers(page, pageSize, filter.term);
+      console.log(data);
+      debugger
+    } else {
+      data = await usersAPI.getUsers(
+        page,
+        pageSize,
+        filter.term,
+        filter.friend
+      );
+    }
+
+    dispatch(toggleIsFetching(false));
+    dispatch(setUsers(data.items));
+    dispatch(setTotalUsersCount(data.totalCount));
+  };
+};
+
+export const requestFollowingUsers = (page, pageSize, term) => {
+  return async (dispatch) => {
+    dispatch(toggleIsFetching(true));
+    dispatch(setCurrentPage(page));
+
+    let data = await usersAPI.getFollowingUsers(page, pageSize, term);
+    console.log('requestFollowingUsers', data);
     dispatch(toggleIsFetching(false));
     dispatch(setUsers(data.items));
     dispatch(setTotalUsersCount(data.totalCount));

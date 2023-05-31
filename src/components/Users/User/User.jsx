@@ -1,23 +1,16 @@
-import React, { useEffect } from "react";
+import React from "react";
 import s from "./User.module.css";
 import man from "../../Profile/ProfileInfo/images/man.png";
 import { NavLink } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import {
-  getFollowedUsers,
-  getFollowingInProgress,
-} from "../../../redux/usersSelector";
+import { getFollowingInProgress } from "../../../redux/usersSelector";
 import { follow, unfollow } from "../../../redux/usersReducer";
 import { getIsAuth } from "../../../redux/authSelector";
 
 const User = ({ users, ...props }) => {
-  const followedUsers = useSelector(getFollowedUsers);
   const followingInProgress = useSelector(getFollowingInProgress);
   const isAuth = useSelector(getIsAuth);
   const dispatch = useDispatch();
-  useEffect(() => {
-    // console.log(followedUsers);
-  }, [followedUsers]);
 
   return (
     <>
@@ -38,7 +31,6 @@ const User = ({ users, ...props }) => {
             <button
               disabled={
                 !isAuth || followingInProgress.some((id) => id === users.id)
-                // followedUsers.includes(users.id)
               }
               onClick={() => {
                 dispatch(unfollow(users.id));
@@ -50,7 +42,6 @@ const User = ({ users, ...props }) => {
             <button
               disabled={
                 !isAuth || followingInProgress.some((id) => id === users.id)
-                // followedUsers.includes(users.id)
               }
               onClick={() => {
                 dispatch(follow(users.id));

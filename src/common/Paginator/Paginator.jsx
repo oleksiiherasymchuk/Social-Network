@@ -4,10 +4,14 @@ import {
   getCurrentPage,
   getPageSize,
   getTotalUsersCount,
-  // getUsersFilter,
+  getUsersFilter,
 } from "../../redux/usersSelector";
 import { useDispatch, useSelector } from "react-redux";
-import { requestUsers, setCurrentPage, setPageSize } from "../../redux/usersReducer";
+import {
+  requestUsers,
+  setCurrentPage,
+  setPageSize,
+} from "../../redux/usersReducer";
 
 const Paginator = (props) => {
   const dispatch = useDispatch();
@@ -15,25 +19,21 @@ const Paginator = (props) => {
   let currentPage = useSelector(getCurrentPage);
   let totalUsersCount = useSelector(getTotalUsersCount);
   let pageSize = useSelector(getPageSize);
+  let filter = useSelector(getUsersFilter);
 
   const onPageChanged = (pageNumber) => {
-    dispatch(requestUsers(pageNumber, pageSize));
+    dispatch(requestUsers(pageNumber, pageSize, filter));
   };
 
-  const onPageSizeChanged = (pageNumber,size) => {
-    dispatch(setPageSize(size))
-    dispatch(setCurrentPage(1))
+  const onPageSizeChanged = (pageNumber, size) => {
+    dispatch(setPageSize(size));
+    dispatch(setCurrentPage(1));
     dispatch(requestUsers(1, size));
-  }
+  };
 
   useEffect(() => {
     requestUsers(currentPage, pageSize);
   }, [currentPage, pageSize, totalUsersCount]);
-
-  // const onFilterChanged = (filter) => {
-  //   console.log(filter);
-  //   dispatch(requestUsers(1, pageSize, filter))
-  // }
 
   return (
     <div>

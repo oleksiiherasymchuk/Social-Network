@@ -4,8 +4,10 @@ import s from "./Users.module.scss";
 import User from "./User/User";
 import { compose } from "redux";
 import { connect } from "react-redux";
-import { requestUsers, toggleIsFetching } from "../../redux/usersReducer";
+import { requestUsers, toggleIsFetching, setUsers, requestFollowingUsers } from "../../redux/usersReducer";
 import Preloader from "../../common/Preloader/Preloader";
+import UsersSearchForm from "./UsersSearchForm";
+import { getFollowingInProgress } from "../../redux/usersSelector";
 
 const Users = ({
   users,
@@ -16,30 +18,32 @@ const Users = ({
   pageSize,
   totalUsersCount,
   filter,
+  followingUsers,
+  followingInProgress,
+  requestFollowingUsers,
+  setUsers,
   ...props
 }) => {
+  const onFilterChanged = (filter) => {
+    if (filter.friend === null) {
+      requestUsers(1, pageSize, filter);
+    } else if(filter.friend === true){
+      const followedUser = users.filter(user => user.followed)
+      setUsers(followedUser)
+    } else if(filter.friend === false){
+      const unfollowedUsers = users.filter(user => !user.followed)
+      setUsers(unfollowedUsers);      
+    } 
+  };
+
   useEffect(() => {
-    // toggleIsFetching(true);
-    requestUsers(currentPage, pageSize, totalUsersCount)
-    // console.log('users');
-    // requestUsers(currentPage, pageSize, totalUsersCount, filter)
-    // requestUsers()
-    // .then(() => {
-    //   toggleIsFetching(false);
-    // });
-  }, [
-    // requestUsers,
-    // toggleIsFetching,
-    // currentPage,
-    // filter,
-    // totalUsersCount,
-    // pageSize,
-  ]);
-  // useEffect(() => {
-  //   if (users.length > 0) {
-  //     console.log(users);
-  //   }
-  // }, [users]);
+    onFilterChanged(filter);
+  }, [filter]);
+
+
+  useEffect(() => {
+    requestUsers(currentPage, pageSize, filter);
+  }, [currentPage, pageSize, filter, requestUsers]);
 
   return (
     <div className={s.usersComponent}>
@@ -50,6 +54,15 @@ const Users = ({
       ) : (
         <div className={s.users}>
           <h1>Users</h1>
+          <div className={s.usersSearch}>
+            <UsersSearchForm
+              onFilterChanged={onFilterChanged}
+              filter={filter}
+              followingUsers={followingUsers}
+              requestUsers={requestUsers}
+              {...props}
+            />
+          </div>
           <div className={s.paginator}>
             <Paginator />
           </div>
@@ -76,9 +89,10 @@ const mapStateToProps = (state) => {
     totalUsersCount: state.usersPage.totalUsersCount,
     pageSize: state.usersPage.pageSize,
     filter: state.usersPage.filter,
-    // followingInProgress: getFollowingInProgress(state),
+    followingUsers: state.usersPage.followingUsers,
+    followingInProgress: getFollowingInProgress(state),
   };
 };
 export default compose(
-  connect(mapStateToProps, { requestUsers, toggleIsFetching })
+  connect(mapStateToProps, { requestUsers, toggleIsFetching, setUsers, requestFollowingUsers })
 )(Users);

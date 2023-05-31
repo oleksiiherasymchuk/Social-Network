@@ -60,12 +60,29 @@ export const usersAPI = {
     // console.warn("Obsolete method. Please profileAPI object.");
     return profileAPI.getProfile(userId);
   },
+  // getUsers(currentPage = 1, pageSize = 10, term = "", friend = null) {
+  //   return instance
+  //     .get(
+  //       `users?page=${currentPage}&count=${pageSize}&term=${term}` +
+  //         (friend === null ? "" : `$friend=${friend}`)
+  //     )
+  //     .then((response) => {
+  //       return response.data;
+  //     });
+  // },
   async getUsers(currentPage = 1, pageSize = 10, term = "", friend = null) {
     const response = await instance.get(
       `users?page=${currentPage}&count=${pageSize}&term=${term}` +
         (friend === null ? "" : `$friend=${friend}`)
     );
+    // debugger
     return response.data;
+  },
+  async getFollowingUsers(currentPage = 1, pageSize = 10, term = "") {
+    // debugger
+    const response = await this.getUsers(currentPage, pageSize, term, true)
+    return response
+    // return this.getUsers(currentPage, pageSize, term, true);
   },
   follow(userId) {
     return instance.post(`follow/${userId}`);

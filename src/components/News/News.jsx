@@ -36,9 +36,9 @@ const News = () => {
             <Paginator />
           </div> */}
           <div className={s.new}>
-            {newsItem.map((n) => {
+            {newsItem.map((n, index) => {
               return (
-                <div className={s.newInfo} key={n.pubDate}>
+                <div className={s.newInfo} key={index}>
                   <New news={n} />
                 </div>
               );

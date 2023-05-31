@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { } from "react";
 import s from "./Messages.module.css";
 import Message from "./Message/Message";
 import { useSelector } from "react-redux";
@@ -23,7 +23,7 @@ const Messages = () => {
         )}
         {messages &&
           messages.map((m) => {
-            return <Message key={m.id} message={m.message} time={m.sentAt} />;
+            return <Message key={m.id} message={m.message} time={m.sentAt} id={m.id} />;
           })}
       </div>
     </div>

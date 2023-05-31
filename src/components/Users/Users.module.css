@@ -19,6 +19,14 @@
   font-weight: bold;
   font-size: 20px;
 }
+.usersComponent .usersSearch {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  height: 40px;
+  margin-top: 10px;
+}
 .usersComponent .users .paginator {
   margin-top: 15px;
 }

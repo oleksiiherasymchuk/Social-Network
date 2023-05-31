@@ -53,7 +53,7 @@ export const getNews = () => {
   return async (dispatch) => {
     dispatch(toggleIsFetching(true));
     let response = await newsAPI.getNews();
-    console.log(response);
+    // console.log(response);
     dispatch(setNews(response.data.results));
     dispatch(toggleIsFetching(false));
   };

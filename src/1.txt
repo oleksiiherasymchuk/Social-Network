@@ -1,5 +1,5 @@
 1. post update?
-2. filter for Users, render followedUsers
+2. filter.term
 3. websocket chat
 4. validators for login and signinmodal
 5. scroll users renders the same time how clicked follow, choose dialog with follower 

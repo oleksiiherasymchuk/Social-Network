@@ -17,7 +17,7 @@
 }
 .messageText {
   margin-left: 30px;
-  height: 90%;
+  height: 85%;
   width: 93%;
   display: flex;
   justify-content: space-between;
@@ -29,4 +29,20 @@
 .messageTextTime {
   color: gray;
   font-size: 12px;
+}
+.messageDelete {
+  width: 2%;
+  height: 80%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: gainsboro;
+  border-radius: 4px;
+  margin-left: 10px;
+  color: white;
+}
+.messageDelete:hover {
+  background-color: white;
+  color: gainsboro;
+  border: 1px solid gainsboro;
 }/*# sourceMappingURL=Message.module.css.map */
