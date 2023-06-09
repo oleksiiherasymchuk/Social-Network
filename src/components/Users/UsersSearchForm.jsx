@@ -17,11 +17,12 @@ const UsersSearchForm = ({ onFilterChanged, filter }) => {
     setSubmitting(false);
   };
 
+
   return (
     <div className={s.usersSearchFrom}>
       <Formik
         initialValues={filter}
-        enableReinitialize={true}
+        // enableReinitialize={true}
         onSubmit={submit}
       >
         {({ isSubmitting }) => (
