@@ -3,18 +3,22 @@ import { Formik, Form, Field } from "formik";
 import s from "./UsersSearchForm.module.css";
 
 const UsersSearchForm = ({ onFilterChanged, filter }) => {
+
   const submit = (values, { setSubmitting }) => {
     const newFilter = {
       term: values.term,
       friend:
         values.friend === "null"
+        // values.friend === ""
           ? null
           : values.friend === "true"
           ? true
           : false,
     };
+    console.log(values);
     onFilterChanged(newFilter);
     setSubmitting(false);
+    // values.term = ''
   };
 
 
@@ -35,6 +39,7 @@ const UsersSearchForm = ({ onFilterChanged, filter }) => {
             />
             <Field as="select" name="friend" className={s.searchSelect}>
               <option value="null">All</option>
+              {/* <option value="">All</option> */}
               <option value="true">Followed</option>
               <option value="false">Unfollowed</option>
             </Field>

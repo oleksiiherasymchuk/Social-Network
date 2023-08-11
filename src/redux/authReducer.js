@@ -71,26 +71,19 @@ export const getAuthUserData = () => async (dispatch) => {
   let response = await authAPI.me();
   dispatch(getUserId(response.data.data.id));
   if (response.data.resultCode === 0) {
-    // dispatch(toggleIsAuth(true));
     let { id, login, email } = response.data.data;
-    // dispatch(getAuthProfile(response.data.data));
     dispatch(setAuthUserDataActionCreator(id, email, login, true));
   }
 };
 
 export const login =
   (email, password, rememberMe, captcha) => async (dispatch) => {
-    // debugger
     let response = await authAPI.login(email, password, rememberMe, captcha);
     if (response.data.resultCode === 0) {
-      // debugger
-      // console.log('auth login 0');
       dispatch(getAuthUserData());
       dispatch(toggleIsAuth(true));
     } else {
       if (response.data.resultCode === 10) {
-        // debugger
-        // console.log('auth login 10');
         dispatch(getCaptchaUrl());
       }
 
@@ -98,12 +91,13 @@ export const login =
         response.data.messages.length > 0
           ? response.data.messages[0]
           : "Some error in authReducer";
+      console.log(message);
+
       dispatch(stopSubmit("login", { _error: message }));
     }
   };
 
 export const logout = () => async (dispatch) => {
-  // debugger
   dispatch(toggleIsAuth(false));
   let response = await authAPI.login();
   if (response.data.resultCode === 0) {

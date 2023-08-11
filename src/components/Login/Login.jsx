@@ -5,7 +5,7 @@ import { connect } from "react-redux";
 import { getCaptchaUrl, login } from "../../redux/authReducer";
 import { Navigate } from "react-router-dom";
 
-const Login = ({ captchaUrl, handleSubmit, ...props }) => {
+const Login = ({ captchaUrl, handleSubmit, error, ...props }) => {
   return (
     <div className={s.login}>
       <h1>Please, log in to see user's information</h1>
@@ -34,14 +34,16 @@ const Login = ({ captchaUrl, handleSubmit, ...props }) => {
         <div className={s.captcha}>
           {captchaUrl && <img src={captchaUrl} alt="captcha" />}
           {captchaUrl && (
-            <input
+            <Field
               type="text"
               placeholder="Type the characters above"
               name="captcha"
+              component="input"
               required
             />
           )}
         </div>
+        {error && <div className={s.error}>{error}</div>}
         <button>Log in</button>
       </form>
     </div>
@@ -49,18 +51,18 @@ const Login = ({ captchaUrl, handleSubmit, ...props }) => {
 };
 const LoginReduxForm = reduxForm({ form: "login" })(Login);
 
-const LoginPage = ({
-  isAuth,
-  ...props
-}) => {
+const LoginPage = ({ isAuth, ...props }) => {
   const onSubmit = (formData) => {
-    props.login(formData.email, formData.password, formData.rememberMe);
+    props.login(
+      formData.email,
+      formData.password,
+      formData.rememberMe,
+      formData.captcha
+    );
   };
 
-  // let userId = props.userId;
 
   if (isAuth) {
-    // console.log(props.userId);
     return <Navigate to={`/profile/${props.userId}`} />;
   }
 
@@ -78,7 +80,7 @@ const LoginPage = ({
 const mapStateToProps = (state) => ({
   captchaUrl: state.auth.captchaUrl,
   isAuth: state.auth.isAuth,
-  userId: state.auth.userId
+  userId: state.auth.userId,
 });
 
 export default connect(mapStateToProps, { login, getCaptchaUrl })(LoginPage);

@@ -7,6 +7,17 @@
   flex-direction: column;
   padding-top: 20px;
 
+  &None{
+    margin-bottom: 30px;
+    font-style: italic;
+    font-size: 16px;
+    height: 200px;
+    width: 200px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
   h1 {
     margin-bottom: 30px;
     font-weight: bold;

@@ -1,7 +1,6 @@
-1. post update?
-2. filter.term, onChange filter
+2. users filter
 3. websocket chat
 4. validators for login and signinmodal
-5. scroll users renders the same time how clicked follow, choose dialog with follower reactmemo
+5. scroll users renders the same time how clicked follow, choose dialog with followed reactmemo
 6. login render authorizedId the second time
 7. follow/unfollow login/logout followedUsers not show

@@ -145,7 +145,6 @@ export const requestUsers = (page, pageSize, filter, followingOnly) => {
     dispatch(toggleIsFetching(true));
     dispatch(setCurrentPage(page));
     dispatch(setFilter(filter));
-
     // let data = await usersAPI.getUsers(
     //   page,
     //   pageSize,
@@ -156,16 +155,20 @@ export const requestUsers = (page, pageSize, filter, followingOnly) => {
     let data;
 
     if (followingOnly) {
-      data = await usersAPI.getFollowingUsers(page, pageSize, filter.term);
-      console.log(data);
+      // data = await usersAPI.getFollowingUsers(page, pageSize, filter.term);
       debugger
+      data = await usersAPI.getFollowingUsers(page, pageSize, filter);
+      console.log(data);
+      // debugger
     } else {
+      // debugger
       data = await usersAPI.getUsers(
         page,
         pageSize,
         filter.term,
         filter.friend
       );
+      console.log(data);
     }
 
     dispatch(toggleIsFetching(false));

@@ -7,7 +7,7 @@ import { getFollowingInProgress } from "../../../redux/usersSelector";
 import { follow, unfollow } from "../../../redux/usersReducer";
 import { getIsAuth } from "../../../redux/authSelector";
 
-const User = ({ users, ...props }) => {
+const User = React.memo(({ users, ...props }) => {
   const followingInProgress = useSelector(getFollowingInProgress);
   const isAuth = useSelector(getIsAuth);
   const dispatch = useDispatch();
@@ -54,6 +54,6 @@ const User = ({ users, ...props }) => {
       </div>
     </>
   );
-};
+});
 
 export default User;

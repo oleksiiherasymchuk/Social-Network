@@ -4,10 +4,8 @@ import DialogItem from "./DialogItem/DialogItem";
 import { useSelector } from "react-redux";
 import { getFollowedUsers } from "../../../redux/usersSelector";
 
-const DialogsScroll = () => {
-  // const dialogsItems = [
-  //   1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20,
-  // ];
+const DialogsScroll = React.memo(() => {
+  // const dialogsItems = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20];
   const followedUsers = useSelector(getFollowedUsers);
 
   useEffect(() => {
@@ -18,7 +16,7 @@ const DialogsScroll = () => {
     <div className={s.dialogsScroll}>
       {followedUsers &&
         followedUsers.map((di) => {
-          return <DialogItem key={di} className={s.dialogsScrollItems} />;
+          return <DialogItem key={di} className={s.dialogsScrollItems} followedUsers={followedUsers}/>;
         })}
       {followedUsers.length === 0 && (
         <div className={s.dialogsScrollEmpty}>
@@ -29,6 +27,6 @@ const DialogsScroll = () => {
       )}
     </div>
   );
-};
+});
 
 export default DialogsScroll;
